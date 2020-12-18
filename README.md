@@ -42,7 +42,7 @@ it('wait for something', async function () {
 
   setInterval(() => myObj.foo++, 1000)
 
-  // Then use it just like you would expect():
+  // Then use it just like you would expect() (but note you must await it!)
   await waitFor(myObj).to.have.property('foo').that.equals(3)
 
   // You can also use a getter function:
