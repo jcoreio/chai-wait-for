@@ -68,7 +68,7 @@ describe('waitFor', function () {
         '2',
         '3'
       ),
-      clock.tickAsync(501),
+      clock.tickAsync(1001),
     ])
     expect(i).to.equal(4)
   })

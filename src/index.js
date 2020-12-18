@@ -92,28 +92,24 @@ module.exports = (chai, utils) => {
     if (isChainableMethod(getterName)) {
       Object.defineProperty(WaitFor.prototype, getterName, {
         get() {
-          const obj = new WaitFor(this.options, () => {
+          const gotten = new WaitFor(this.options, () => {
             const assertion = this.buildAssertion()
             return assertion[getterName]
           })
-          function chainable() {
+          function chainableMethodWrapper() {
             return new WaitFor(this.options, () => {
               const assertion = this.buildAssertion()
               return assertion[getterName].apply(assertion, arguments)
             })
           }
-          for (const methodName of methodNames) {
-            chainable[methodName] = obj[methodName].bind(obj)
-          }
-          for (const getterName of getterNames) {
-            Object.defineProperty(chainable, getterName, {
-              get() {
-                return obj[getterName]
-              },
-              configurable: true,
-            })
-          }
-          return chainable
+          // Inherit all properties from the object by replacing the `Function` prototype
+          var prototype = Object.create(gotten)
+          // Restore the `call` and `apply` methods from `Function`
+          prototype.call = Function.prototype.call
+          prototype.apply = Function.prototype.apply
+          Object.setPrototypeOf(chainableMethodWrapper, prototype)
+
+          return chainableMethodWrapper
         },
         configurable: true,
       })
