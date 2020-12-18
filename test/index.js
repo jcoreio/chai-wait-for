@@ -46,6 +46,18 @@ describe('waitFor', function () {
     expect(i).to.equal(3)
   })
 
+  it('works when an assertion takes longer than retryInterval', async function () {
+    let i = 0
+    await Promise.all([
+      waitFor(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 200))
+        if (i++ < 3) throw new Error('TEST')
+      }).to.be.fulfilled,
+      clock.tickAsync(1001),
+    ])
+    expect(i).to.equal(4)
+  })
+
   it('works with chai-as-promised', async function () {
     let i = 0
     const values = [

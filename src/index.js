@@ -18,16 +18,19 @@ class WaitFor {
       try {
         await this.buildAssertion()
       } catch (error) {
-        const delay =
-          Math.min(timeoutTime, thisAttemptStartTime + retryInterval) -
-          new Date().getTime()
+        const now = new Date().getTime()
 
-        if (delay <= 0) {
+        if (now >= timeoutTime) {
           error.message += ` (timed out after ${timeout}ms, ${numAttempts} attempts)`
           throw error
         }
+        const nextTime = Math.min(
+          timeoutTime,
+          thisAttemptStartTime + retryInterval
+        )
 
-        await new Promise((resolve) => setTimeout(resolve, delay))
+        if (nextTime > now)
+          await new Promise((resolve) => setTimeout(resolve, nextTime - now))
         await poll()
       }
     }
