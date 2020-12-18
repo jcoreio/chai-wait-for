@@ -16,7 +16,8 @@ class WaitFor {
       numAttempts++
       const thisAttemptStartTime = new Date().getTime()
       try {
-        await this.buildAssertion()
+        const assertion = await this.buildAssertion()
+        if (assertion) await assertion._obj
       } catch (error) {
         const now = new Date().getTime()
 

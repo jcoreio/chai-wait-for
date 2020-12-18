@@ -52,7 +52,7 @@ describe('waitFor', function () {
       waitFor(async () => {
         await new Promise((resolve) => setTimeout(resolve, 200))
         if (i++ < 3) throw new Error('TEST')
-      }).to.be.fulfilled,
+      }),
       clock.tickAsync(1001),
     ])
     expect(i).to.equal(4)
