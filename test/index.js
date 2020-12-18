@@ -18,6 +18,8 @@ chai.use(
   })
 )
 chai.use(require('../src/index'))
+// make sure using twice doesn't cause problems
+chai.use(require('../src/index'))
 
 describe('waitFor', function () {
   let clock

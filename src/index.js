@@ -86,6 +86,7 @@ module.exports = (chai, utils) => {
           return assertion[getterName]
         })
       },
+      configurable: true,
     })
   })
 }
