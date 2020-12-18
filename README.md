@@ -6,7 +6,10 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![npm version](https://badge.fury.io/js/chai-wait-for.svg)](https://badge.fury.io/js/chai-wait-for)
 
-poll an assertion until it succeeds. Provides an especially clean syntax for working with some chai plugins like `chai-fs`, `chai-webdriverio-async` etc:
+Drop-in replacement for `expect` that waits for the assertion to succeed (retries on an interval you choose, until a timeout
+you choose).
+
+Provides an especially clean syntax for working with some chai plugins like `chai-fs`, `chai-webdriverio-async` etc:
 
 ```js
 await waitFor('#submittedMessage').to.have.text('Your changes have been saved!')
@@ -46,7 +49,31 @@ it('wait for something', async function () {
   await waitFor(() => myObj.foo).to.equal(4)
 
   // If you need to override the defaults:
-  waitFor.timeout(1000)(myObj).to.have.property('foo').that.equals(3)
-  waitFor.retryInterval(500)(myObj).to.have.property('foo').that.equals(3)
+  await waitFor.timeout(1000)(myObj).to.have.property('foo').that.equals(3)
+  await waitFor.retryInterval(500)(myObj).to.have.property('foo').that.equals(3)
+})
+```
+
+# Plugin usage order/usage with `chai-as-promised`
+
+All `chai` language chains that were defined before you use `chai-wait-for` will be available to use with it.
+
+This is similar to `chai-as-promsied`, but although you generally need to `chai.use(require('chai-as-promised'))` after
+all your other chai plugins, this is actually not the case for `chai-wait-for`, because `chai-wait-for` doesn't add or
+overwrite any language chains.
+Instead you should use `chai-wait-for` after `chai-as-promised`, so that you can `waitFor` `.eventually` assertions:
+
+```js
+const chai = require('chai')
+const chaiWaitFor = require('chai-wait-for')
+chai.use(require('chai-as-promised'))
+chai.use(chaiWaitFor)
+
+const waitFor = chaiWaitFor.bindWaitFor({ retryInterval: 100, timeout: 5000 })
+
+it('wait for something', async function () {
+  // User.findOne returns a promise; use .eventually.not.exist to wait for user to be deleted
+  await waitFor(() => User.findOne({ where: { username: 'dude' } })).to
+    .eventually.not.exist
 })
 ```

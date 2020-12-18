@@ -1,7 +1,7 @@
 {
   "name": "chai-wait-for",
   "version": "0.0.0-development",
-  "description": "poll until an assertion succeeds",
+  "description": "Drop-in replacement for expect that waits for the assertion to succeed (retries on an interval you choose, until a timeout you choose)",
   "main": "index.js",
   "sideEffects": false,
   "scripts": {
