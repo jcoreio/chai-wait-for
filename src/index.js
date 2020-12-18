@@ -82,16 +82,52 @@ module.exports = (chai, utils) => {
     return name !== '_obj' && typeof propertyDescs[name].get === 'function'
   })
 
+  const isChainableMethod = (getterName) =>
+    Object.prototype.hasOwnProperty.call(
+      Assertion.prototype.__methods,
+      getterName
+    )
+
   getterNames.forEach((getterName) => {
-    Object.defineProperty(WaitFor.prototype, getterName, {
-      get() {
-        return new WaitFor(this.options, () => {
-          const assertion = this.buildAssertion()
-          return assertion[getterName]
-        })
-      },
-      configurable: true,
-    })
+    if (isChainableMethod(getterName)) {
+      Object.defineProperty(WaitFor.prototype, getterName, {
+        get() {
+          const obj = new WaitFor(this.options, () => {
+            const assertion = this.buildAssertion()
+            return assertion[getterName]
+          })
+          function chainable() {
+            return new WaitFor(this.options, () => {
+              const assertion = this.buildAssertion()
+              return assertion[getterName].apply(assertion, arguments)
+            })
+          }
+          for (const methodName of methodNames) {
+            chainable[methodName] = obj[methodName].bind(obj)
+          }
+          for (const getterName of getterNames) {
+            Object.defineProperty(chainable, getterName, {
+              get() {
+                return obj[getterName]
+              },
+              configurable: true,
+            })
+          }
+          return chainable
+        },
+        configurable: true,
+      })
+    } else {
+      Object.defineProperty(WaitFor.prototype, getterName, {
+        get() {
+          return new WaitFor(this.options, () => {
+            const assertion = this.buildAssertion()
+            return assertion[getterName]
+          })
+        },
+        configurable: true,
+      })
+    }
   })
 }
 

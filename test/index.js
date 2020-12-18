@@ -45,7 +45,33 @@ describe('waitFor', function () {
     ])
     expect(i).to.equal(3)
   })
-
+  it('.to.include works', async function () {
+    let i = 0
+    const values = [
+      { foo: 1, bar: 1 },
+      { foo: 2, bar: 1 },
+      { foo: 3, bar: 1 },
+      { foo: 4, bar: 1 },
+    ]
+    await Promise.all([
+      waitFor(() => values[i++]).to.include({ foo: 3 }),
+      clock.tickAsync(501),
+    ])
+    expect(i).to.equal(3)
+  })
+  it('.to.include.all.keys works', async function () {
+    let i = 0
+    let values = {}
+    await Promise.all([
+      waitFor(() => (values = { ...values, [i++]: true })).to.include.all.keys(
+        '1',
+        '2',
+        '3'
+      ),
+      clock.tickAsync(501),
+    ])
+    expect(i).to.equal(4)
+  })
   it('works when an assertion takes longer than retryInterval', async function () {
     let i = 0
     await Promise.all([
