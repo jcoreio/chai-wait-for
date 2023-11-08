@@ -13,5 +13,5 @@ export interface BoundWaitFor {
 
 export function bindWaitFor(options: BindWaitForOptions): BoundWaitFor
 
-const chaiWaitFor: Chai.ChaiPlugin
+declare const chaiWaitFor: Chai.ChaiPlugin
 export = chaiWaitFor
