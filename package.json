@@ -2,62 +2,12 @@
   "name": "chai-wait-for",
   "version": "0.0.0-development",
   "description": "Drop-in replacement for expect that waits for the assertion to succeed (retries on an interval you choose, until a timeout you choose)",
-  "main": "index.js",
   "sideEffects": false,
   "scripts": {
-    "lint": "eslint src test --cache",
-    "lint:fix": "eslint --fix src test --cache",
-    "prettier": "prettier --write *.json *.md *.js '{src,test}/**/*.js'",
-    "prettier:check": "prettier --list-different *.json *.md *.js '{src,test}/**/*.js'",
-    "flow": "flow",
-    "flow:coverage": "for file in src/**.js test/**.js; do echo $file; flow coverage $file; done",
-    "clean": "rimraf es lib $(cd src; ls) *.js.flow",
-    "build": "npm run clean && babel src --out-dir es && flow-copy-source -v src/ es && cross-env BABEL_ENV=es5 babel src --out-dir . && flow-copy-source -v src/ .",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=es5 mocha $npm_package_config_mocha && cross-env NODE_ENV=test BABEL_ENV=coverage nyc --reporter=lcov --reporter=text mocha $npm_package_config_mocha",
-    "test:watch": "cross-env NODE_ENV=test BABEL_ENV=test mocha --watch $npm_package_config_mocha",
-    "test:debug": "cross-env NODE_ENV=test BABEL_ENV=test mocha --inspect-brk $npm_package_config_mocha",
-    "codecov": "nyc report --reporter=text-lcov > coverage.lcov; codecov",
-    "prepublishOnly": "npm run clean && npm run prettier:check && npm run lint && flow && npm test && npm run build",
-    "open:coverage": "open coverage/lcov-report/index.html",
-    "semantic-release": "semantic-release"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm run lint && flow",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-push": "npm test"
-    }
-  },
-  "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write"
-    ]
-  },
-  "commitlint": {
-    "extends": [
-      "@jedwards1211/commitlint-config"
-    ]
-  },
-  "prettier": {
-    "semi": false,
-    "singleQuote": true,
-    "trailingComma": "es5"
-  },
-  "config": {
-    "mocha": "-r @babel/register test/configure.js 'test/**/*.js'",
-    "commitizen": {
-      "path": "cz-conventional-changelog"
-    }
-  },
-  "nyc": {
-    "include": [
-      "src/**/*.js"
-    ],
-    "require": [
-      "@babel/register"
-    ],
-    "sourceMap": false,
-    "instrument": false
+    "tc": "toolchain",
+    "toolchain": "toolchain",
+    "test": "toolchain test",
+    "prepublishOnly": "echo This package is meant to be published by semantic-release from the dist build directory. && exit 1"
   },
   "repository": {
     "type": "git",
@@ -80,49 +30,42 @@
   },
   "homepage": "https://github.com/jcoreio/chai-wait-for#readme",
   "devDependencies": {
-    "@babel/cli": "^7.12.10",
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-proposal-class-properties": "^7.12.1",
-    "@babel/plugin-proposal-export-default-from": "^7.12.1",
-    "@babel/plugin-proposal-export-namespace-from": "^7.12.1",
-    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.12.10",
-    "@babel/preset-env": "^7.12.10",
-    "@babel/preset-flow": "^7.12.1",
-    "@babel/register": "^7.12.10",
-    "@commitlint/cli": "^11.0.0",
-    "@commitlint/config-conventional": "^11.0.0",
-    "@jedwards1211/commitlint-config": "^1.0.2",
-    "@jedwards1211/eslint-config": "^2.0.2",
-    "@jedwards1211/eslint-config-flow": "^3.0.0",
-    "babel-eslint": "^10.1.0",
-    "babel-plugin-istanbul": "^6.0.0",
-    "chai": "^4.2.0",
+    "@jcoreio/toolchain": "^3.2.0",
+    "@jcoreio/toolchain-circle": "^3.2.0",
+    "@jcoreio/toolchain-esnext": "^3.2.0",
+    "@jcoreio/toolchain-mocha": "^3.2.0",
+    "@jcoreio/toolchain-semantic-release": "^3.2.0",
+    "@jcoreio/toolchain-typescript": "^3.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.60.0",
+    "@typescript-eslint/parser": "^5.60.0",
+    "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "chai-subset": "^1.6.0",
     "chai-webdriverio-async": "^2.0.0",
-    "codecov": "^3.8.1",
     "copy": "^0.3.2",
     "cross-env": "^7.0.3",
-    "eslint": "^7.15.0",
+    "eslint": "^8.43.0",
     "eslint-config-prettier": "^7.0.0",
-    "eslint-plugin-flowtype": "^5.2.0",
-    "flow-bin": "^0.140.0",
-    "flow-copy-source": "https://github.com/jedwards1211/flow-copy-source#no-watch",
-    "husky": "^4.3.6",
-    "istanbul": "^0.4.5",
-    "lint-staged": "^10.5.3",
     "lodash": "^4.17.20",
-    "mocha": "^8.2.1",
-    "nyc": "^15.1.0",
-    "prettier": "^2.2.1",
-    "prettier-eslint": "^12.0.0",
+    "mocha": "^10.2.0",
     "rimraf": "^3.0.2",
-    "semantic-release": "^17.3.0",
-    "sinon": "^9.2.2"
+    "sinon": "^9.2.2",
+    "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@babel/runtime": "^7.12.5"
-  }
+    "@babel/runtime": "^7.18.6",
+    "@types/chai": "^4.3.10"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "packageManager": "pnpm@8.3.1"
 }
