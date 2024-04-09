@@ -5,11 +5,12 @@ class WaitFor {
     this.options = options
     this.buildAssertion = buildAssertion
   }
-  async then(onResolve, onReject) {
+  async poll() {
     const { timeout, retryInterval } = this.options
     let numAttempts = 0
-    let startTime = new Date().getTime()
-    let timeoutTime = startTime + timeout
+    const startTime = new Date().getTime()
+    const timeoutTime = startTime + timeout
+
     // eslint-disable-next-line no-constant-condition
     while (true) {
       numAttempts++
@@ -17,14 +18,13 @@ class WaitFor {
       try {
         const assertion = await this.buildAssertion()
         if (assertion) await assertion._obj
-        return onResolve()
+        return
       } catch (error) {
         const now = new Date().getTime()
         if (now >= timeoutTime) {
           if (error instanceof Object && typeof error.message === 'string') {
             error.message += ` (timed out after ${timeout}ms, ${numAttempts} attempts)`
           }
-          if (onReject) return onReject(error)
           throw error
         }
         const nextTime = Math.min(
@@ -36,6 +36,9 @@ class WaitFor {
         }
       }
     }
+  }
+  then(onResolve, onReject) {
+    return this.poll().then(onResolve, onReject)
   }
 }
 
