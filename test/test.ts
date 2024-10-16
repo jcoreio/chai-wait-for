@@ -7,4 +7,4 @@ const waitFor = bindWaitFor({
   retryInterval: 500,
 })
 
-waitFor(5).to.equal(3)
+await waitFor(5).to.equal(3)
