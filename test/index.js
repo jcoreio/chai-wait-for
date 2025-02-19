@@ -134,6 +134,16 @@ describe('waitFor', function () {
     )
   })
 
+  it(`throws when assertion._obj is same promise instance twice in a row`, async function () {
+    const p = Promise.reject(new Error('foo'))
+    await Promise.all([
+      expect(waitFor(() => p)).to.be.rejectedWith(
+        'waitFor() function may not return the same promise instance twice in a row'
+      ),
+      clock.tickAsync(1000),
+    ])
+  })
+
   it(`works with .have.property`, async function () {
     const values = { foo: 1, bar: 1 }
     setTimeout(() => (values.foo = 3), 300)

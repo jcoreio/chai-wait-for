@@ -2,6 +2,14 @@ const chai = require('chai')
 
 const INVALID_ARG_MESSAGE = 'first argument to waitFor() must be a function'
 
+class InvalidWaitForUsageError extends Error {
+  name = 'InvalidWaitForUsageError'
+}
+
+function isPromise(x) {
+  return x instanceof Object && typeof x.then === 'function'
+}
+
 class WaitFor {
   constructor(options, buildAssertion) {
     this.options = options
@@ -13,20 +21,30 @@ class WaitFor {
     const startTime = new Date().getTime()
     const timeoutTime = startTime + timeout
 
+    let lastAssertionObj
+
     // eslint-disable-next-line no-constant-condition
     while (true) {
       numAttempts++
       const thisAttemptStartTime = new Date().getTime()
       try {
         const assertion = await this.buildAssertion()
-        if (assertion) await assertion._obj
+        if (assertion) {
+          if (
+            isPromise(lastAssertionObj) &&
+            isPromise(assertion._obj) &&
+            lastAssertionObj === assertion._obj
+          ) {
+            throw new InvalidWaitForUsageError(
+              'waitFor() function may not return the same promise instance twice in a row'
+            )
+          }
+          lastAssertionObj = assertion._obj
+          await assertion._obj
+        }
         return
       } catch (error) {
-        if (
-          error instanceof Object &&
-          'message' in error &&
-          error.message === INVALID_ARG_MESSAGE
-        ) {
+        if (error instanceof InvalidWaitForUsageError) {
           throw error
         }
 
@@ -41,6 +59,7 @@ class WaitFor {
           timeoutTime,
           thisAttemptStartTime + retryInterval
         )
+
         if (nextTime > now) {
           await new Promise((resolve) => setTimeout(resolve, nextTime - now))
         }
@@ -56,7 +75,9 @@ function bindWaitFor(options) {
   const bound = (value, ...args) =>
     new WaitFor(options, () => {
       if (typeof value !== 'function') {
-        throw new Error(INVALID_ARG_MESSAGE)
+        throw new InvalidWaitForUsageError(
+          'first argument to waitFor() must be a function'
+        )
       }
       return chai.expect(value(), ...args)
     })
