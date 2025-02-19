@@ -24,7 +24,7 @@ export interface BindWaitForOptions {
 }
 
 export interface BoundWaitFor {
-  (val: any, message?: string): ResolvedPromisedAssertion
+  (val: () => any, message?: string): ResolvedPromisedAssertion
   timeout(timeout: number): BoundWaitFor
   retryInterval(retryInterval: number): BoundWaitFor
 }
