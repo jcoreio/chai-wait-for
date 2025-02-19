@@ -97,6 +97,10 @@ function bindWaitFor(options) {
 
   const bound = (value, ...args) => {
     if (typeof value !== 'function') {
+      // construct an error here so that the call stack will point to
+      // the waitFor() call, but use it to reject the WaitFor promise
+      // instead of synchronously throwing it.  (Functions that sometimes
+      // return a Promise and sometimes synchronously throw cause confusion)
       const error = new InvalidWaitForUsageError(
         'first argument to waitFor() must be a function'
       )
