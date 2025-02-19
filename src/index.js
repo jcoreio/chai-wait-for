@@ -1,7 +1,5 @@
 const chai = require('chai')
 
-const INVALID_ARG_MESSAGE = 'first argument to waitFor() must be a function'
-
 class InvalidWaitForUsageError extends Error {
   name = 'InvalidWaitForUsageError'
 }
