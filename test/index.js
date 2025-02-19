@@ -111,13 +111,13 @@ describe('waitFor', function () {
       $$: async () => [await browser.$()],
     }
     await Promise.all([
-      waitFor('#foo').to.have.text('baz'),
+      waitFor(() => '#foo').to.have.text('baz'),
       clock.tickAsync(501),
     ])
     expect(i).to.equal(3)
     await Promise.all([
       expect(
-        waitFor('#foo')
+        waitFor(() => '#foo')
           .to.have.text('forgh')
           .then(() => {})
       ).to.be.rejectedWith(
@@ -127,20 +127,20 @@ describe('waitFor', function () {
     ])
   })
 
-  it(`supports non-function assertion._obj`, async function () {
+  it(`throws on non-function assertion._obj`, async function () {
     const values = { foo: 1, bar: 1 }
-    setTimeout(() => (values.foo = 3), 300)
-    await Promise.all([
-      waitFor(values).to.containSubset({ foo: 3 }),
-      clock.tickAsync(500),
-    ])
+    await expect(waitFor(values)).to.be.rejectedWith(
+      'first argument to waitFor() must be a function'
+    )
   })
 
   it(`works with .have.property`, async function () {
     const values = { foo: 1, bar: 1 }
     setTimeout(() => (values.foo = 3), 300)
     await Promise.all([
-      waitFor(values).to.have.property('foo').that.equals(3),
+      waitFor(() => values)
+        .to.have.property('foo')
+        .that.equals(3),
       clock.tickAsync(500),
     ])
   })
@@ -149,7 +149,7 @@ describe('waitFor', function () {
     const values = { foo: 1, bar: 1 }
     await Promise.all([
       expect(
-        waitFor(values, 'blah')
+        waitFor(() => values, 'blah')
           .to.containSubset({ foo: 3 })
           .then(() => {})
       ).to.be.rejectedWith(

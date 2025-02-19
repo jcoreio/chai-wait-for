@@ -1,5 +1,7 @@
 const chai = require('chai')
 
+const INVALID_ARG_MESSAGE = 'first argument to waitFor() must be a function'
+
 class WaitFor {
   constructor(options, buildAssertion) {
     this.options = options
@@ -20,6 +22,14 @@ class WaitFor {
         if (assertion) await assertion._obj
         return
       } catch (error) {
+        if (
+          error instanceof Object &&
+          'message' in error &&
+          error.message === INVALID_ARG_MESSAGE
+        ) {
+          throw error
+        }
+
         const now = new Date().getTime()
         if (now >= timeoutTime) {
           if (error instanceof Object && typeof error.message === 'string') {
@@ -44,9 +54,12 @@ class WaitFor {
 
 function bindWaitFor(options) {
   const bound = (value, ...args) =>
-    new WaitFor(options, () =>
-      chai.expect(typeof value === 'function' ? value() : value, ...args)
-    )
+    new WaitFor(options, () => {
+      if (typeof value !== 'function') {
+        throw new Error(INVALID_ARG_MESSAGE)
+      }
+      return chai.expect(value(), ...args)
+    })
   bound.timeout = (timeout) => bindWaitFor({ ...options, timeout })
   bound.retryInterval = (retryInterval) =>
     bindWaitFor({ ...options, retryInterval })
