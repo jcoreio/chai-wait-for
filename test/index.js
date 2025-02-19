@@ -144,6 +144,27 @@ describe('waitFor', function () {
     ])
   })
 
+  it(`throws when outstanding calls are dangling and failOnDanglingCalls is provided`, async function () {
+    let doAfterEach
+    const waitFor = bindWaitFor({
+      retryInterval: 100,
+      timeout: 1000,
+      failOnDanglingCalls: (fn) => {
+        doAfterEach = fn
+      },
+    })
+
+    await waitFor(() => Promise.resolve([2]))
+      .to.eventually.deep.equal([2])
+      .and.contain(2)
+    doAfterEach()
+
+    waitFor(() => Promise.resolve())
+    expect(() => doAfterEach()).to.throw(
+      'expected all waitFor() calls to be awaited, but this call was dangling'
+    )
+  })
+
   it(`works with .have.property`, async function () {
     const values = { foo: 1, bar: 1 }
     setTimeout(() => (values.foo = 3), 300)

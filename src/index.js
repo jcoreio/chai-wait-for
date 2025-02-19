@@ -14,6 +14,12 @@ class WaitFor {
   constructor(options, buildAssertion) {
     this.options = options
     this.buildAssertion = buildAssertion
+    if (options.outstandingCalls) {
+      this.outstandingCall = new Error(
+        'expected all waitFor() calls to be awaited, but this call was dangling'
+      )
+      options.outstandingCalls.add(this.outstandingCall)
+    }
   }
   async poll() {
     const { timeout, retryInterval } = this.options
@@ -67,13 +73,32 @@ class WaitFor {
     }
   }
   then(onResolve, onReject) {
-    return this.poll().then(onResolve, onReject)
+    return this.poll()
+      .finally(() => this._clearOutstanding())
+      .then(onResolve, onReject)
+  }
+  _clearOutstanding() {
+    const { outstandingCall } = this
+    if (outstandingCall) {
+      this.options.outstandingCalls?.delete(outstandingCall)
+    }
   }
 }
 
 function bindWaitFor(options) {
+  let outstandingCalls = undefined
+  if (options.failOnDanglingCalls) {
+    outstandingCalls = new Set()
+    options.failOnDanglingCalls(() => {
+      for (const call of outstandingCalls) {
+        throw call
+      }
+    })
+  }
+  const finalOptions = { ...options, outstandingCalls }
+
   const bound = (value, ...args) =>
-    new WaitFor(options, () => {
+    new WaitFor(finalOptions, () => {
       if (typeof value !== 'function') {
         throw new InvalidWaitForUsageError(
           'first argument to waitFor() must be a function'
@@ -84,6 +109,7 @@ function bindWaitFor(options) {
   bound.timeout = (timeout) => bindWaitFor({ ...options, timeout })
   bound.retryInterval = (retryInterval) =>
     bindWaitFor({ ...options, retryInterval })
+
   return bound
 }
 
@@ -107,6 +133,7 @@ module.exports = (chai, utils) => {
 
   methodNames.forEach((methodName) => {
     WaitFor.prototype[methodName] = function () {
+      this._clearOutstanding()
       return new WaitFor(this.options, () => {
         const assertion = this.buildAssertion()
         return assertion[methodName].apply(assertion, arguments)
@@ -128,11 +155,14 @@ module.exports = (chai, utils) => {
     if (isChainableMethod(getterName)) {
       Object.defineProperty(WaitFor.prototype, getterName, {
         get() {
+          this._clearOutstanding()
           const gotten = new WaitFor(this.options, () => {
             const assertion = this.buildAssertion()
             return assertion[getterName]
           })
+          gotten._clearOutstanding()
           function chainableMethodWrapper() {
+            this._clearOutstanding()
             return new WaitFor(this.options, () => {
               const assertion = this.buildAssertion()
               return assertion[getterName].apply(assertion, arguments)
@@ -152,6 +182,7 @@ module.exports = (chai, utils) => {
     } else {
       Object.defineProperty(WaitFor.prototype, getterName, {
         get() {
+          this._clearOutstanding()
           return new WaitFor(this.options, () => {
             const assertion = this.buildAssertion()
             return assertion[getterName]

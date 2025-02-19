@@ -25,6 +25,7 @@ npm install --save-dev chai-wait-for
 // First, use the plugin
 const chai = require('chai')
 const chaiWaitFor = require('chai-wait-for')
+const { afterEach } = require('mocha')
 chai.use(chaiWaitFor)
 
 // Then create your `waitFor` with default options:
@@ -33,6 +34,8 @@ const waitFor = chaiWaitFor.bindWaitFor({
   timeout: 5000,
   // If an assertion attempt fails, it will retry after this amount of time (in milliseconds)
   retryInterval: 100,
+  // this is optional, but asserts that you didn't forget to await any waitFor() calls
+  failOnDanglingCalls: afterEach,
 })
 
 it('wait for something', async function () {

@@ -5,6 +5,22 @@
 export interface BindWaitForOptions {
   timeout: number
   retryInterval: number
+  /**
+   * Allows tests to assert that there are no unawaited waitFor()
+   * calls after tests are done.
+   *
+   * Usage example:
+   *
+   *   import { afterEach } from 'mocha'
+   *   import { bindWaitFor } from 'chai-wait-for'
+   *
+   *   const waitFor = bindWaitFor({
+   *     timeout: 10000,
+   *     retryInterval: 100,
+   *     failOnDanglingCalls: afterEach,
+   *   })
+   */
+  failOnDanglingCalls?: (fn: () => void) => unknown
 }
 
 export interface BoundWaitFor {
