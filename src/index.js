@@ -95,15 +95,19 @@ function bindWaitFor(options) {
   }
   const finalOptions = { ...options, outstandingCalls }
 
-  const bound = (value, ...args) =>
-    new WaitFor(finalOptions, () => {
-      if (typeof value !== 'function') {
-        throw new InvalidWaitForUsageError(
-          'first argument to waitFor() must be a function'
-        )
-      }
+  const bound = (value, ...args) => {
+    if (typeof value !== 'function') {
+      const error = new InvalidWaitForUsageError(
+        'first argument to waitFor() must be a function'
+      )
+      return new WaitFor(finalOptions, () => {
+        throw error
+      })
+    }
+    return new WaitFor(finalOptions, () => {
       return chai.expect(value(), ...args)
     })
+  }
   bound.timeout = (timeout) => bindWaitFor({ ...options, timeout })
   bound.retryInterval = (retryInterval) =>
     bindWaitFor({ ...options, retryInterval })
