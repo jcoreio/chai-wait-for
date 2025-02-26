@@ -134,6 +134,23 @@ describe('waitFor', function () {
     )
   })
 
+  it(`allows non-function assertion._obj when requireThunk: false`, async function () {
+    const values = { foo: 1, bar: 1 }
+    const waitFor = bindWaitFor({
+      retryInterval: 100,
+      timeout: 1000,
+      requireThunk: false,
+    })
+    await Promise.all([
+      waitFor(values).to.containSubset({ bar: 2 }),
+      (async () => {
+        await clock.tickAsync(500)
+        values.bar = 2
+        await clock.tickAsync(1000)
+      })(),
+    ])
+  })
+
   it(`throws when assertion._obj is same promise instance twice in a row`, async function () {
     const p = Promise.reject(new Error('foo'))
     await Promise.all([

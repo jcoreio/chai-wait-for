@@ -96,7 +96,7 @@ function bindWaitFor(options) {
   const finalOptions = { ...options, outstandingCalls }
 
   const bound = (value, ...args) => {
-    if (typeof value !== 'function') {
+    if (options.requireThunk !== false && typeof value !== 'function') {
       // construct an error here so that the call stack will point to
       // the waitFor() call, but use it to reject the WaitFor promise
       // instead of synchronously throwing it.  (Functions that sometimes
@@ -109,7 +109,7 @@ function bindWaitFor(options) {
       })
     }
     return new WaitFor(finalOptions, () => {
-      return chai.expect(value(), ...args)
+      return chai.expect(typeof value === 'function' ? value() : value, ...args)
     })
   }
   bound.timeout = (timeout) => bindWaitFor({ ...options, timeout })

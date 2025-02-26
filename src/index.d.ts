@@ -5,6 +5,7 @@
 export interface BindWaitForOptions {
   timeout: number
   retryInterval: number
+  requireThunk?: boolean
   /**
    * Allows tests to assert that there are no unawaited waitFor()
    * calls after tests are done.
@@ -23,13 +24,15 @@ export interface BindWaitForOptions {
   failOnDanglingCalls?: (fn: () => void) => unknown
 }
 
-export interface BoundWaitFor {
-  (val: () => any, message?: string): ResolvedPromisedAssertion
+export interface BoundWaitFor<Value = () => any> {
+  (val: Value, message?: string): ResolvedPromisedAssertion
   timeout(timeout: number): BoundWaitFor
   retryInterval(retryInterval: number): BoundWaitFor
 }
 
-export function bindWaitFor(options: BindWaitForOptions): BoundWaitFor
+export function bindWaitFor<Options extends BindWaitForOptions>(
+  options: Options
+): BoundWaitFor<Options extends { requireThunk: false } ? any : () => any>
 
 declare const chaiWaitFor: Chai.ChaiPlugin
 export default chaiWaitFor
