@@ -25,7 +25,11 @@ export interface BindWaitForOptions {
 }
 
 export interface BoundWaitFor<Value = () => any> {
-  (val: Value, message?: string): ResolvedPromisedAssertion
+  <V extends Value>(val: V, message?: string): V extends PromiseLike<any>
+    ? {
+        ERROR: 'assertion object may not be Promiselike, use waitFor(() => ...)'
+      }
+    : ResolvedPromisedAssertion
   timeout(timeout: number): BoundWaitFor
   retryInterval(retryInterval: number): BoundWaitFor
 }
