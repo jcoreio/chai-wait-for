@@ -30,6 +30,7 @@ chai.use(chaiWaitFor)
 
 // Then create your `waitFor` with default options:
 const waitFor = chaiWaitFor.bindWaitFor({
+  chai,
   // If no assertion attempt succeeds before this time elapses (in milliseconds), the waitFor will fail.
   timeout: 5000,
   // If an assertion attempt fails, it will retry after this amount of time (in milliseconds)
@@ -72,7 +73,7 @@ const chaiWaitFor = require('chai-wait-for')
 chai.use(require('chai-as-promised'))
 chai.use(chaiWaitFor)
 
-const waitFor = chaiWaitFor.bindWaitFor({ retryInterval: 100, timeout: 5000 })
+const waitFor = chaiWaitFor.bindWaitFor({ chai, retryInterval: 100, timeout: 5000 })
 
 it('wait for something', async function () {
   // User.findOne returns a promise; use .eventually.not.exist to wait for user to be deleted

@@ -1,17 +1,17 @@
 const { describe, it, beforeEach, afterEach } = require('mocha')
 const { expect } = require('chai')
 const { bindWaitFor } = require('../src/index')
+const chai = require('chai')
 const sinon = require('sinon')
 
-const waitFor = bindWaitFor({ retryInterval: 100, timeout: 1000 })
+const waitFor = bindWaitFor({ chai, retryInterval: 100, timeout: 1000 })
 
 let browser
 
-const chai = require('chai')
 chai.use(require('chai-subset'))
 chai.use(require('chai-as-promised'))
 chai.use(
-  require('chai-webdriverio-async').default({
+  require('chai-webdriverio-async')({
     $: (selector) => browser.$(selector),
     $$: (selector) => browser.$$(selector),
     waitUntil: (...args) => browser.waitUntil(...args),

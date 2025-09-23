@@ -1,8 +1,8 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/ban-types */
 /// <reference types="chai" />
 
 export interface BindWaitForOptions {
+  chai?: Chai.ChaiStatic
   timeout: number
   retryInterval: number
   requireThunk?: boolean
@@ -25,11 +25,14 @@ export interface BindWaitForOptions {
 }
 
 export interface BoundWaitFor<Value = () => any> {
-  <V extends Value>(val: V, message?: string): V extends PromiseLike<any>
-    ? {
-        ERROR: 'assertion object may not be Promiselike, use waitFor(() => ...)'
-      }
-    : ResolvedPromisedAssertion
+  <V extends Value>(
+    val: V,
+    message?: string
+  ): V extends PromiseLike<any> ?
+    {
+      ERROR: 'assertion object may not be Promiselike, use waitFor(() => ...)'
+    }
+  : ResolvedPromisedAssertion
   timeout(timeout: number): BoundWaitFor
   retryInterval(retryInterval: number): BoundWaitFor
 }
@@ -43,10 +46,9 @@ export default chaiWaitFor
 
 type ResolvedPromisedAssertion =
   // @ts-ignore
-  unknown extends Chai.PromisedAssertion
-    ? PromisedAssertion
-    : // @ts-ignore
-      Chai.PromisedAssertion
+  unknown extends Chai.PromisedAssertion ? PromisedAssertion
+  : // @ts-ignore
+    Chai.PromisedAssertion
 
 // The rest of these types are copied from chai-as-promised
 
@@ -171,7 +173,7 @@ interface PromisedTypeComparison {
 }
 
 interface PromisedInstanceOf {
-  (constructor: Object, message?: string): PromisedAssertion
+  (constructor: object, message?: string): PromisedAssertion
 }
 
 interface PromisedCloseTo {
@@ -230,7 +232,7 @@ interface PromisedLength
 }
 
 interface PromisedInclude {
-  (value: Object, message?: string): PromisedAssertion
+  (value: object, message?: string): PromisedAssertion
   (value: string, message?: string): PromisedAssertion
   (value: number, message?: string): PromisedAssertion
   keys: PromisedKeys
@@ -248,7 +250,7 @@ interface PromisedMatch {
 interface PromisedKeys {
   (...keys: string[]): PromisedAssertion
   (keys: any[]): PromisedAssertion
-  (keys: Object): PromisedAssertion
+  (keys: object): PromisedAssertion
 }
 
 interface PromisedThrow {
@@ -274,5 +276,5 @@ interface PromisedMembers {
 }
 
 interface PromisedPropertyChange {
-  (object: Object, property: string, message?: string): PromisedAssertion
+  (object: object, property: string, message?: string): PromisedAssertion
 }

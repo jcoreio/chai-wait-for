@@ -1,4 +1,4 @@
-const chai = require('chai')
+const defaultChai = require('chai')
 
 class InvalidWaitForUsageError extends Error {
   name = 'InvalidWaitForUsageError'
@@ -27,7 +27,6 @@ class WaitFor {
 
     let lastAssertionObj
 
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       numAttempts++
       const thisAttemptStartTime = new Date().getTime()
@@ -84,6 +83,8 @@ class WaitFor {
 }
 
 function bindWaitFor(options) {
+  const chai = options.chai || defaultChai
+
   let outstandingCalls = undefined
   if (options.failOnDanglingCalls) {
     outstandingCalls = new Set()
