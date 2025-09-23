@@ -14,9 +14,6 @@ importers:
       '@types/chai':
         specifier: ^4.3.10
         version: 4.3.20
-      chai:
-        specifier: ^4.3.7
-        version: 4.5.0
     devDependencies:
       '@jcoreio/toolchain':
         specifier: ^5.5.5
@@ -36,15 +33,21 @@ importers:
       '@jcoreio/toolchain-typescript':
         specifier: ^5.5.5
         version: 5.5.5(typescript@5.9.2)
+      chai:
+        specifier: ^6.0.1
+        version: 6.0.1
       chai-as-promised:
-        specifier: ^7.1.1
-        version: 7.1.2(chai@4.5.0)
+        specifier: ^8.0.2
+        version: 8.0.2(chai@6.0.1)
       chai-subset:
         specifier: ^1.6.0
         version: 1.6.0
       chai-webdriverio-async:
         specifier: ^2.0.0
         version: 2.8.0
+      chai4:
+        specifier: npm:chai@^4
+        version: chai@4.5.0
       eslint:
         specifier: ^9.17.0
         version: 9.35.0
@@ -996,10 +999,10 @@ packages:
   caniuse-lite@1.0.30001743:
     resolution: {integrity: sha512-e6Ojr7RV14Un7dz6ASD0aZDmQPT/A+eZU+nuTNfjqmRrmkmQlnTNWH0SKmqagx9PeW87UVqapSurtAXifmtdmw==}
 
-  chai-as-promised@7.1.2:
-    resolution: {integrity: sha512-aBDHZxRzYnUYuIAIPBH2s511DjlKPzXNlXSGFC8CwmroWQLfrW0LtE1nK3MAwwNhJPa9raEjNCmRoFpG0Hurdw==}
+  chai-as-promised@8.0.2:
+    resolution: {integrity: sha512-1GadL+sEJVLzDjcawPM4kjfnL+p/9vrxiEUonowKOAzvVg0PixJUdtuDzdkDeQhK3zfOE76GqGkZIQ7/Adcrqw==}
     peerDependencies:
-      chai: '>= 2.1.2 < 6'
+      chai: '>= 2.1.2 < 7'
 
   chai-subset@1.6.0:
     resolution: {integrity: sha512-K3d+KmqdS5XKW5DWPd5sgNffL3uxdDe+6GdnJh3AYPhwnBGRY5urfvfcbRtWIvvpz+KxkL9FeBB6MZewLUNwug==}
@@ -1014,6 +1017,10 @@ packages:
     resolution: {integrity: sha512-RITGBfijLkBddZvnn8jdqoTypxvqbOLYQkGGxXzeFjVHvudaPw0HNFD9x928/eUwYWd2dPCugVqspGALTZZQKw==}
     engines: {node: '>=4'}
 
+  chai@6.0.1:
+    resolution: {integrity: sha512-/JOoU2//6p5vCXh00FpNgtlw0LjvhGttaWc+y7wpW9yjBm3ys0dI8tSKZxIOgNruz5J0RleccatSIC3uxEZP0g==}
+    engines: {node: '>=18'}
+
   chalk@4.1.2:
     resolution: {integrity: sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==}
     engines: {node: '>=10'}
@@ -1024,6 +1031,10 @@ packages:
 
   check-error@1.0.3:
     resolution: {integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==}
+
+  check-error@2.1.1:
+    resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
+    engines: {node: '>= 16'}
 
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -3514,10 +3525,10 @@ snapshots:
 
   caniuse-lite@1.0.30001743: {}
 
-  chai-as-promised@7.1.2(chai@4.5.0):
+  chai-as-promised@8.0.2(chai@6.0.1):
     dependencies:
-      chai: 4.5.0
-      check-error: 1.0.3
+      chai: 6.0.1
+      check-error: 2.1.1
 
   chai-subset@1.6.0: {}
 
@@ -3535,6 +3546,8 @@ snapshots:
       pathval: 1.1.1
       type-detect: 4.1.0
 
+  chai@6.0.1: {}
+
   chalk@4.1.2:
     dependencies:
       ansi-styles: 4.3.0
@@ -3545,6 +3558,8 @@ snapshots:
   check-error@1.0.3:
     dependencies:
       get-func-name: 2.0.2
+
+  check-error@2.1.1: {}
 
   chokidar@3.6.0:
     dependencies:

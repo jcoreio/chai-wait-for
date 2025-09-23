@@ -73,7 +73,11 @@ const chaiWaitFor = require('chai-wait-for')
 chai.use(require('chai-as-promised'))
 chai.use(chaiWaitFor)
 
-const waitFor = chaiWaitFor.bindWaitFor({ chai, retryInterval: 100, timeout: 5000 })
+const waitFor = chaiWaitFor.bindWaitFor({
+  chai,
+  retryInterval: 100,
+  timeout: 5000,
+})
 
 it('wait for something', async function () {
   // User.findOne returns a promise; use .eventually.not.exist to wait for user to be deleted
