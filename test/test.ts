@@ -1,9 +1,9 @@
-import chai from 'chai'
-import chaiWaitFor, { bindWaitFor } from '../src'
-chai.use(chaiWaitFor)
+import * as chai from 'chai'
+import { chaiWaitFor, bindWaitFor } from '../src/index'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function typeTests() {
+  chai.use(chaiWaitFor)
   await bindWaitFor({
     timeout: 5000,
     retryInterval: 500,

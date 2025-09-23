@@ -1,6 +1,6 @@
 {
   "extends": "./node_modules/@jcoreio/toolchain-typescript/tsconfig.json",
-  "include": ["./src", "./test"],
+  "include": ["./src", "./test", "./types"],
   "exclude": ["node_modules"],
   "compilerOptions": {
     "skipLibCheck": false

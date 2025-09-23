@@ -1,31 +1,36 @@
-const { describe, it, beforeEach, afterEach } = require('mocha')
-const { expect } = require('chai')
-const { bindWaitFor } = require('../src/index')
-const chai6 = require('chai')
-const chai4 = require('chai4')
-const sinon = require('sinon')
+import { describe, it, beforeEach, afterEach } from 'mocha'
+import { expect } from 'chai'
+import { chaiWaitFor, bindWaitFor } from '../src/index'
+import * as chai6 from 'chai'
+// @ts-expect-error hard to get types to behave
+import chai4 from 'chai4'
+import sinon from 'sinon'
+// @ts-expect-error types collide with chai >=5 but doesn't exist on chai 4
+import chaiSubset from 'chai-subset'
+import chaiAsPromised from 'chai-as-promised'
+import chaiWebdriverioAsync from 'chai-webdriverio-async'
 
 for (const chai of [chai6, chai4]) {
   describe(chai === chai6 ? 'chai@^6' : 'chai@^4', function () {
     const waitFor = bindWaitFor({ chai, retryInterval: 100, timeout: 1000 })
 
-    let browser
+    let browser: any
 
-    chai.use(require('chai-subset'))
-    chai.use(require('chai-as-promised').default)
+    chai.use(chaiSubset)
+    chai.use(chaiAsPromised)
     chai.use(
-      require('chai-webdriverio-async')({
-        $: (selector) => browser.$(selector),
-        $$: (selector) => browser.$$(selector),
-        waitUntil: (...args) => browser.waitUntil(...args),
+      chaiWebdriverioAsync({
+        $: (selector: any) => browser.$(selector),
+        $$: (selector: any) => browser.$$(selector),
+        waitUntil: (...args: any[]) => browser.waitUntil(...args),
       })
     )
-    chai.use(require('../src/index'))
+    chai.use(chaiWaitFor)
     // make sure using twice doesn't cause problems
-    chai.use(require('../src/index'))
+    chai.use(chaiWaitFor)
 
     describe('waitFor', function () {
-      let clock
+      let clock: sinon.SinonFakeTimers
 
       beforeEach(() => {
         clock = sinon.useFakeTimers()
@@ -43,6 +48,7 @@ for (const chai of [chai6, chai4]) {
           { foo: 4, bar: 1 },
         ]
         await Promise.all([
+          // @ts-expect-error using @types/chai-subset causes other problems
           waitFor(() => values[i++]).to.containSubset({ foo: 3 }),
           clock.tickAsync(501),
         ])
@@ -94,6 +100,7 @@ for (const chai of [chai6, chai4]) {
           { foo: 4, bar: 1 },
         ]
         await Promise.all([
+          // @ts-expect-error using @types/chai-subset causes other problems
           waitFor(async () => values[i++]).to.eventually.containSubset({
             foo: 3,
           }),
@@ -112,6 +119,7 @@ for (const chai of [chai6, chai4]) {
           $$: async () => [await browser.$()],
         }
         await Promise.all([
+          // @ts-expect-error not on promised language chain
           waitFor(() => '#foo').to.have.text('baz'),
           clock.tickAsync(501),
         ])
@@ -119,6 +127,7 @@ for (const chai of [chai6, chai4]) {
         await Promise.all([
           expect(
             waitFor(() => '#foo')
+              // @ts-expect-error not on promised language chain
               .to.have.text('forgh')
               .then(() => {})
           ).to.be.rejectedWith(
@@ -130,6 +139,7 @@ for (const chai of [chai6, chai4]) {
 
       it(`throws on non-function assertion._obj`, async function () {
         const values = { foo: 1, bar: 1 }
+        // @ts-expect-error function required
         await expect(waitFor(values)).to.be.rejectedWith(
           'first argument to waitFor() must be a function'
         )
@@ -143,6 +153,7 @@ for (const chai of [chai6, chai4]) {
           requireThunk: false,
         })
         await Promise.all([
+          // @ts-expect-error using @types/chai-subset causes other problems
           waitFor(values).to.containSubset({ bar: 2 }),
           (async () => {
             await clock.tickAsync(500)
@@ -163,7 +174,7 @@ for (const chai of [chai6, chai4]) {
       })
 
       it(`throws when outstanding calls are dangling and failOnDanglingCalls is provided`, async function () {
-        let doAfterEach
+        let doAfterEach: () => void = () => {}
         const waitFor = bindWaitFor({
           retryInterval: 100,
           timeout: 1000,
@@ -199,6 +210,7 @@ for (const chai of [chai6, chai4]) {
         await Promise.all([
           expect(
             waitFor(() => values, 'blah')
+              // @ts-expect-error using @types/chai-subset causes other problems
               .to.containSubset({ foo: 3 })
               .then(() => {})
           ).to.be.rejectedWith(
@@ -219,6 +231,7 @@ for (const chai of [chai6, chai4]) {
         await Promise.all([
           expect(
             waitFor(() => values[Math.min(values.length - 1, i++)])
+              // @ts-expect-error using @types/chai-subset causes other problems
               .to.containSubset({ foo: 5 })
               .then(() => {})
           ).to.be.rejectedWith(
@@ -241,6 +254,7 @@ for (const chai of [chai6, chai4]) {
           expect(
             waitFor
               .timeout(500)(() => values[Math.min(values.length - 1, i++)])
+              // @ts-expect-error using @types/chai-subset causes other problems
               .to.containSubset({ foo: 5 })
               .then(() => {})
           ).to.be.rejectedWith(
@@ -265,6 +279,7 @@ for (const chai of [chai6, chai4]) {
               .retryInterval(200)(
                 () => values[Math.min(values.length - 1, i++)]
               )
+              // @ts-expect-error using @types/chai-subset causes other problems
               .to.containSubset({ foo: 5 })
               .then(() => {})
           ).to.be.rejectedWith(

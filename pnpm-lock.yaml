@@ -11,34 +11,46 @@ importers:
       '@babel/runtime':
         specifier: ^7.26.0
         version: 7.28.4
-      '@types/chai':
-        specifier: ^4.3.10
-        version: 4.3.20
+      '@types/sinon':
+        specifier: ^9
+        version: 9.0.11
     devDependencies:
       '@jcoreio/toolchain':
-        specifier: ^5.5.5
-        version: 5.5.5
+        specifier: ^5.5.7
+        version: 5.5.7
       '@jcoreio/toolchain-circle':
-        specifier: ^5.5.5
-        version: 5.5.5
+        specifier: ^5.5.7
+        version: 5.5.7
       '@jcoreio/toolchain-esnext':
-        specifier: ^5.5.5
-        version: 5.5.5
+        specifier: ^5.5.7
+        version: 5.5.7
       '@jcoreio/toolchain-mocha':
-        specifier: ^5.5.5
-        version: 5.5.5
+        specifier: ^5.5.7
+        version: 5.5.7
       '@jcoreio/toolchain-semantic-release':
-        specifier: ^5.5.5
-        version: 5.5.5
+        specifier: ^5.5.7
+        version: 5.5.7
       '@jcoreio/toolchain-typescript':
-        specifier: ^5.5.5
-        version: 5.5.5(typescript@5.9.2)
+        specifier: ^5.5.7
+        version: 5.5.7(typescript@5.9.2)
+      '@types/chai':
+        specifier: ^5.2.2
+        version: 5.2.2
+      '@types/chai-as-promised':
+        specifier: ^7.1.5
+        version: 7.1.8
+      '@types/mocha':
+        specifier: ^10.0.10
+        version: 10.0.10
+      '@types/node':
+        specifier: ^24.5.2
+        version: 24.5.2
       chai:
-        specifier: ^6.0.1
+        specifier: ^6
         version: 6.0.1
       chai-as-promised:
-        specifier: ^8.0.2
-        version: 8.0.2(chai@6.0.1)
+        specifier: ^7.1.1
+        version: 7.1.2(chai@6.0.1)
       chai-subset:
         specifier: ^1.6.0
         version: 1.6.0
@@ -717,26 +729,26 @@ packages:
     resolution: {integrity: sha512-Kg+erBdnA1sczSNNGEGIA9k7hwfnN1NrKEnACfJwbGoR6T5E/yhBbpyF5q5dEIvxHTUJ4wL5azEd3m68qq8F+Q==}
     engines: {node: '>=16'}
 
-  '@jcoreio/toolchain-circle@5.5.5':
-    resolution: {integrity: sha512-195WmR2qCjaYhNTjRFKvuriJ8IpsvyKOtMHdpFXZ+4ZQ2/LabWFHyIESlz879i4/0zpgxCslz74IkszMYXMnRA==}
+  '@jcoreio/toolchain-circle@5.5.7':
+    resolution: {integrity: sha512-mDi4KlbhAzhChnIEsF5BYq9lupgP30CfcyNrwNDpscjeePnzl46RmG2zWguggmTkBBphQ0lACExN7Z89/y3GlA==}
 
-  '@jcoreio/toolchain-esnext@5.5.5':
-    resolution: {integrity: sha512-Ec2zBvyiaz/XSx7cKLVp2brhmywJzGteQf7stsKNfMiyOYuJUzHKJ7jHICzQafA2toG0fzT9w+HMNmkAjQMaGw==}
+  '@jcoreio/toolchain-esnext@5.5.7':
+    resolution: {integrity: sha512-FpbjW5PNchiSTYd2FwN5mNNC2rt+RdQx4LWxkJmYTBhJD//KVXHO4JzqyJUm+De2QlWVE271R5rbz7iFYcGeNg==}
     hasBin: true
 
-  '@jcoreio/toolchain-mocha@5.5.5':
-    resolution: {integrity: sha512-KIv6sanJ6pfuG4Lq+FO0oOcLZBkhQKPH72MMNw6cq2ruxpRpeY2cUithzVsnvQ4keRduTmk1hXctJ3trifoM4A==}
+  '@jcoreio/toolchain-mocha@5.5.7':
+    resolution: {integrity: sha512-6fSn2NG57V4+cuIcs5HggtQ6U5VI/8GUDuw+FOkN/RfZ/2sq5MBXR46KyRH1k+LZOsF/FctsirM18giKBwseLA==}
 
-  '@jcoreio/toolchain-semantic-release@5.5.5':
-    resolution: {integrity: sha512-NM4vNUITv+QIPqr+niKaMoriSJJDgBJkQADaiWzhAqAQoq9qi5VgOouYL4t+ZjbceLXcVDxenUhjJmRF4rqxRg==}
+  '@jcoreio/toolchain-semantic-release@5.5.7':
+    resolution: {integrity: sha512-4N3imQgZA+XQRmevn68WDBkAzmD4F//mHDtDv14kB4XjylDiVZHa6OUmXjUG0JXeh/Vm28yd5Z4G4DtqfVbPUw==}
 
-  '@jcoreio/toolchain-typescript@5.5.5':
-    resolution: {integrity: sha512-3e86sKA71NBXv0wxMJ89Gm/Nwo3FsIGRi5WioUHmOOoNv8dV+hmYEUG8AMSaPX09I9LGwoZJjBs2yEekLKcbnw==}
+  '@jcoreio/toolchain-typescript@5.5.7':
+    resolution: {integrity: sha512-T39+kWfFykEeBd9Aomr4xavg7C6hQUr/OVGyILqVglh997T/z3h71InBxK3DNIJMHArgOFM0/S7vlZxnjCw4Vw==}
     peerDependencies:
       typescript: ^5.1.0
 
-  '@jcoreio/toolchain@5.5.5':
-    resolution: {integrity: sha512-48vv5in5TkP2KgZkDjcFDk0VKHbMKJ5SSo68fN0pd/WQJrK2oHcIS9tQxLmoRdMfb2vhy2gp+5ReXF5glxkBXA==}
+  '@jcoreio/toolchain@5.5.7':
+    resolution: {integrity: sha512-OHKXFNh49Q6bT4w7a4OhqCMMIQS97oHHDeMJ6FlaLXG7N7Gb/pEwfdUyk8J56EJ1cPBW/kWwVafqlI2/Zt9hPQ==}
     hasBin: true
 
   '@jridgewell/gen-mapping@0.3.13':
@@ -785,14 +797,32 @@ packages:
   '@sinonjs/text-encoding@0.7.3':
     resolution: {integrity: sha512-DE427ROAphMQzU4ENbliGYrBSYPXF+TtLg9S8vzeA+OF4ZKzoDdzfL8sxuMUGS/lgRhM6j1URSk9ghf7Xo1tyA==}
 
-  '@types/chai@4.3.20':
-    resolution: {integrity: sha512-/pC9HAB5I/xMlc5FP77qjCnI16ChlJfW0tGa0IUcFn38VJrTV6DeZ60NU5KZBtaOZqjdpwTWohz5HU1RrhiYxQ==}
+  '@types/chai-as-promised@7.1.8':
+    resolution: {integrity: sha512-ThlRVIJhr69FLlh6IctTXFkmhtP3NpMZ2QGq69StYLyKZFp/HOp1VdKZj7RvfNWYYcJ1xlbLGLLWj1UvP5u/Gw==}
+
+  '@types/chai@5.2.2':
+    resolution: {integrity: sha512-8kB30R7Hwqf40JPiKhVzodJs2Qc1ZJ5zuT3uzw5Hq/dhNCl3G3l83jfpdI1e20BP348+fV7VIL/+FxaXkqBmWg==}
+
+  '@types/deep-eql@4.0.2':
+    resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
 
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
+
+  '@types/mocha@10.0.10':
+    resolution: {integrity: sha512-xPyYSz1cMPnJQhl0CLMH68j3gprKZaTjG3s5Vi+fDgx+uhG9NOXwbVt52eFS8ECyXhyKcjDLCBEqBExKuiZb7Q==}
+
+  '@types/node@24.5.2':
+    resolution: {integrity: sha512-FYxk1I7wPv3K2XBaoyH2cTnocQEu8AOZ60hPbsyukMPLv5/5qr7V1i8PLHdl6Zf87I+xZXFvPCXYjiTFq+YSDQ==}
+
+  '@types/sinon@9.0.11':
+    resolution: {integrity: sha512-PwP4UY33SeeVKodNE37ZlOsR9cReypbMJOhZ7BVE0lB+Hix3efCOxiJWiE5Ia+yL9Cn2Ch72EjFTRze8RZsNtg==}
+
+  '@types/sinonjs__fake-timers@8.1.5':
+    resolution: {integrity: sha512-mQkU2jY8jJEF7YHjHvsQO8+3ughTL1mcnn96igfhONmR+fUPSKIkefQYpSe8bsly2Ep7oQbn/6VG5/9/0qcArQ==}
 
   '@types/validate-npm-package-name@4.0.2':
     resolution: {integrity: sha512-lrpDziQipxCEeK5kWxvljWYhUvOiB2A9izZd9B2AFarYAkqZshb4lPbRs7zKEic6eGtH8V/2qJW+dPp9OtF6bw==}
@@ -999,15 +1029,14 @@ packages:
   caniuse-lite@1.0.30001743:
     resolution: {integrity: sha512-e6Ojr7RV14Un7dz6ASD0aZDmQPT/A+eZU+nuTNfjqmRrmkmQlnTNWH0SKmqagx9PeW87UVqapSurtAXifmtdmw==}
 
-  chai-as-promised@8.0.2:
-    resolution: {integrity: sha512-1GadL+sEJVLzDjcawPM4kjfnL+p/9vrxiEUonowKOAzvVg0PixJUdtuDzdkDeQhK3zfOE76GqGkZIQ7/Adcrqw==}
+  chai-as-promised@7.1.2:
+    resolution: {integrity: sha512-aBDHZxRzYnUYuIAIPBH2s511DjlKPzXNlXSGFC8CwmroWQLfrW0LtE1nK3MAwwNhJPa9raEjNCmRoFpG0Hurdw==}
     peerDependencies:
-      chai: '>= 2.1.2 < 7'
+      chai: '>= 2.1.2 < 6'
 
   chai-subset@1.6.0:
     resolution: {integrity: sha512-K3d+KmqdS5XKW5DWPd5sgNffL3uxdDe+6GdnJh3AYPhwnBGRY5urfvfcbRtWIvvpz+KxkL9FeBB6MZewLUNwug==}
     engines: {node: '>=4'}
-    deprecated: 'functionality of this lib is built-in to chai now. see more details here: https://github.com/debitoor/chai-subset/pull/85'
 
   chai-webdriverio-async@2.8.0:
     resolution: {integrity: sha512-J2ZAZVApzLrYg8AA9G6KHVZWfsgMWDkpwFv1Jd14kD1cViPPIr53COPZURHtwTduDan0tn/s4ZLTLJKjYzasRQ==}
@@ -1031,10 +1060,6 @@ packages:
 
   check-error@1.0.3:
     resolution: {integrity: sha512-iKEoDYaRmd1mxM90a2OEfWhjsjPpYPuQ+lMYsoxB126+t8fw7ySEO48nmDg5COTjxDI65/Y2OWpeEHk3ZOe8zg==}
-
-  check-error@2.1.1:
-    resolution: {integrity: sha512-OAlb+T7V4Op9OwdkjmguYRqncdlx5JiofwOAUkmTF+jNdHwzTaTs4sRAGpzLF3oOz5xAyDGrPgeIDFQmDOTiJw==}
-    engines: {node: '>= 16'}
 
   chokidar@3.6.0:
     resolution: {integrity: sha512-7VT13fmjotKpGipCW9JEQAusEPE+Ei8nl6/g4FBAmIm0GOOLMua9NDDo/DWp0ZAxCr3cPq5ZpBqmPAQgDda2Pw==}
@@ -1387,12 +1412,10 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@8.1.0:
     resolution: {integrity: sha512-r8hpEjiQEYlF2QU0df3dS+nxxSIreXQS1qRhMJM0Q5NDdR386C7jb7Hwwod8Fgiuex+k0GFjgft18yvxm5XoCQ==}
     engines: {node: '>=12'}
-    deprecated: Glob versions prior to v9 are no longer supported
 
   globals@14.0.0:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
@@ -1457,7 +1480,6 @@ packages:
 
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
-    deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
@@ -1660,7 +1682,6 @@ packages:
 
   lodash.get@4.4.2:
     resolution: {integrity: sha512-z+Uw/vLuy6gQe8cfaFWD7p0wVv8fJl3mbzXh33RS+0oW2wvUqiRXiQ69gLWSLpgB5/6sU+r6BlQR0MBILadqTQ==}
-    deprecated: This package is deprecated. Use the optional chaining (?.) operator instead.
 
   lodash.merge@4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
@@ -1994,7 +2015,6 @@ packages:
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
-    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   run-parallel@1.2.0:
@@ -2043,7 +2063,6 @@ packages:
 
   sinon@9.2.4:
     resolution: {integrity: sha512-zljcULZQsJxVra28qIAL6ow1Z9tpattkCTEJR4RBP3TGc00FcttsP5pK284Nas5WjMZU5Yzy3kAIp3B3KRf5Yg==}
-    deprecated: 16.1.1
 
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
@@ -2173,6 +2192,9 @@ packages:
     resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
     engines: {node: '>=14.17'}
     hasBin: true
+
+  undici-types@7.12.0:
+    resolution: {integrity: sha512-goOacqME2GYyOZZfb5Lgtu+1IDmAlAEu5xnD3+xTzS10hT0vzpf0SPjkXwAw9Jm+4n/mQGDP3LO8CPbYROeBfQ==}
 
   unicode-canonical-property-names-ecmascript@2.0.1:
     resolution: {integrity: sha512-dA8WbNeb2a6oQzAQ55YlT5vQAWGV9WXOsi3SskE3bcCdM0P4SDd+24zS/OCacdRq5BkdsRj9q3Pg6YyQoxIGqg==}
@@ -3114,9 +3136,9 @@ snapshots:
       pkg-up: 3.1.0
       validate-npm-package-name: 5.0.1
 
-  '@jcoreio/toolchain-circle@5.5.5':
+  '@jcoreio/toolchain-circle@5.5.7':
     dependencies:
-      '@jcoreio/toolchain': 5.5.5
+      '@jcoreio/toolchain': 5.5.7
       dedent-js: 1.0.1
       open: 8.4.2
       semver: 7.7.2
@@ -3124,7 +3146,7 @@ snapshots:
       - jiti
       - supports-color
 
-  '@jcoreio/toolchain-esnext@5.5.5':
+  '@jcoreio/toolchain-esnext@5.5.7':
     dependencies:
       '@babel/cli': 7.28.3(@babel/core@7.28.4)
       '@babel/core': 7.28.4
@@ -3134,7 +3156,7 @@ snapshots:
       '@babel/register': 7.28.3(@babel/core@7.28.4)
       '@babel/runtime': 7.28.4
       '@babel/traverse': 7.28.4
-      '@jcoreio/toolchain': 5.5.5
+      '@jcoreio/toolchain': 5.5.7
       babel-parse-wild-code: 2.1.5
       babel-plugin-add-module-exports: 1.0.4
       babel-plugin-istanbul: 7.0.1
@@ -3149,9 +3171,9 @@ snapshots:
       - jiti
       - supports-color
 
-  '@jcoreio/toolchain-mocha@5.5.5':
+  '@jcoreio/toolchain-mocha@5.5.7':
     dependencies:
-      '@jcoreio/toolchain': 5.5.5
+      '@jcoreio/toolchain': 5.5.7
       babel-plugin-istanbul: 7.0.1
       dedent-js: 1.0.1
       eslint: 9.35.0
@@ -3164,21 +3186,21 @@ snapshots:
       - jiti
       - supports-color
 
-  '@jcoreio/toolchain-semantic-release@5.5.5':
+  '@jcoreio/toolchain-semantic-release@5.5.7':
     dependencies:
-      '@jcoreio/toolchain': 5.5.5
+      '@jcoreio/toolchain': 5.5.7
       dedent-js: 1.0.1
       resolve-bin: 1.0.1
     transitivePeerDependencies:
       - jiti
       - supports-color
 
-  '@jcoreio/toolchain-typescript@5.5.5(typescript@5.9.2)':
+  '@jcoreio/toolchain-typescript@5.5.7(typescript@5.9.2)':
     dependencies:
       '@babel/core': 7.28.4
       '@babel/preset-typescript': 7.27.1(@babel/core@7.28.4)
-      '@jcoreio/toolchain': 5.5.5
-      '@jcoreio/toolchain-esnext': 5.5.5
+      '@jcoreio/toolchain': 5.5.7
+      '@jcoreio/toolchain-esnext': 5.5.7
       '@typescript-eslint/eslint-plugin': 8.44.0(@typescript-eslint/parser@8.44.0(eslint@9.35.0)(typescript@5.9.2))(eslint@9.35.0)(typescript@5.9.2)
       '@typescript-eslint/parser': 8.44.0(eslint@9.35.0)(typescript@5.9.2)
       eslint: 9.35.0
@@ -3189,7 +3211,7 @@ snapshots:
       - jiti
       - supports-color
 
-  '@jcoreio/toolchain@5.5.5':
+  '@jcoreio/toolchain@5.5.7':
     dependencies:
       '@babel/generator': 7.28.3
       '@babel/parser': 7.28.4
@@ -3278,11 +3300,31 @@ snapshots:
 
   '@sinonjs/text-encoding@0.7.3': {}
 
-  '@types/chai@4.3.20': {}
+  '@types/chai-as-promised@7.1.8':
+    dependencies:
+      '@types/chai': 5.2.2
+
+  '@types/chai@5.2.2':
+    dependencies:
+      '@types/deep-eql': 4.0.2
+
+  '@types/deep-eql@4.0.2': {}
 
   '@types/estree@1.0.8': {}
 
   '@types/json-schema@7.0.15': {}
+
+  '@types/mocha@10.0.10': {}
+
+  '@types/node@24.5.2':
+    dependencies:
+      undici-types: 7.12.0
+
+  '@types/sinon@9.0.11':
+    dependencies:
+      '@types/sinonjs__fake-timers': 8.1.5
+
+  '@types/sinonjs__fake-timers@8.1.5': {}
 
   '@types/validate-npm-package-name@4.0.2': {}
 
@@ -3525,10 +3567,10 @@ snapshots:
 
   caniuse-lite@1.0.30001743: {}
 
-  chai-as-promised@8.0.2(chai@6.0.1):
+  chai-as-promised@7.1.2(chai@6.0.1):
     dependencies:
       chai: 6.0.1
-      check-error: 2.1.1
+      check-error: 1.0.3
 
   chai-subset@1.6.0: {}
 
@@ -3558,8 +3600,6 @@ snapshots:
   check-error@1.0.3:
     dependencies:
       get-func-name: 2.0.2
-
-  check-error@2.1.1: {}
 
   chokidar@3.6.0:
     dependencies:
@@ -4686,6 +4726,8 @@ snapshots:
       - supports-color
 
   typescript@5.9.2: {}
+
+  undici-types@7.12.0: {}
 
   unicode-canonical-property-names-ecmascript@2.0.1: {}
 
