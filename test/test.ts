@@ -1,5 +1,5 @@
 import * as chai from 'chai'
-import { chaiWaitFor, bindWaitFor } from '../src/index'
+import chaiWaitFor, { bindWaitFor } from '../src/index'
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 async function typeTests() {

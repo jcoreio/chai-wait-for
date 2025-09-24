@@ -1,6 +1,6 @@
 import { describe, it, beforeEach, afterEach } from 'mocha'
 import { expect } from 'chai'
-import { chaiWaitFor, bindWaitFor } from '../src/index'
+import chaiWaitFor, { bindWaitFor } from '../src/index'
 import * as chai6 from 'chai'
 // @ts-expect-error hard to get types to behave
 import chai4 from 'chai4'

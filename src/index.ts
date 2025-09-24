@@ -184,7 +184,7 @@ export function bindWaitFor<Options extends BindWaitForOptions>(
   return bound
 }
 
-export const chaiWaitFor: Chai.ChaiPlugin = (chai) => {
+export default function chaiWaitFor(chai: Chai.ChaiStatic) {
   lastUsedChai = chai
   const Assertion = chai.Assertion
 
@@ -278,6 +278,7 @@ export const chaiWaitFor: Chai.ChaiPlugin = (chai) => {
     }
   })
 }
+chaiWaitFor.bindWaitFor = bindWaitFor
 
 type ResolvedPromisedAssertion =
   // @ts-ignore
