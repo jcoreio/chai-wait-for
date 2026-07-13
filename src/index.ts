@@ -150,7 +150,11 @@ export function bindWaitFor<Options extends BindWaitForOptions>(
   let outstandingCalls: Set<Error> | undefined = undefined
   if (options.failOnDanglingCalls) {
     const localOutstandingCalls = (outstandingCalls = new Set())
-    options.failOnDanglingCalls(() => {
+    options.failOnDanglingCalls(function failOnDanglingCalls(this: unknown) {
+      if (this instanceof Object && 'currentTest' in this && this.currentTest instanceof Object && 'state' in this.currentTest && this.currentTest.state === 'failed') {
+        // If of the waits in a Promise.all rejects, others may still be pending, so skip this check if the test failed
+        return
+      }
       for (const call of localOutstandingCalls) {
         throw call
       }
